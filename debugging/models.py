@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field, field_validator
 
-
 RECORDS = {
     "USER-101": {
         "record_id": "USER-101",
@@ -25,7 +24,7 @@ def calculate_score(record: dict) -> int:
     raw = (record["skill_score"] * 0.5
            + (record["completed_projects"] / 10) * 100 * 0.3
            + min(record["tenure_months"] / 24, 1.0) * 100 * 0.2)
-    return max(0, min(100, int(round(raw))))
+    return max(0, min(100, round(raw)))
 
 
 def calculate_status(score: int) -> str:

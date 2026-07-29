@@ -189,5 +189,109 @@
       "reduction_percent": 73.2,
       "note": "Projection based on measured benchmark reduction \u2014 not an actual 100K-token API run"
     }
+  },
+  {
+    "timestamp": "2026-07-29T08:11:23.091572+00:00",
+    "model": "mock",
+    "live": false,
+    "baseline": {
+      "total_input_tokens": 1841,
+      "total_output_tokens": 114,
+      "execution_time_s": 1.7037692070007324,
+      "documents_count": 35,
+      "by_agent": {
+        "analyzer": {
+          "input_tokens": 875,
+          "output_tokens": 106
+        },
+        "decision": {
+          "input_tokens": 966,
+          "output_tokens": 8
+        }
+      }
+    },
+    "optimized": {
+      "total_input_tokens": 493,
+      "total_output_tokens": 114,
+      "execution_time_s": 0.005451679229736328,
+      "total_documents": 35,
+      "relevant_documents": 7,
+      "removed_documents": 28,
+      "by_agent": {
+        "analyzer": {
+          "input_tokens": 288,
+          "output_tokens": 106
+        },
+        "decision": {
+          "input_tokens": 205,
+          "output_tokens": 8
+        }
+      }
+    },
+    "comparison": {
+      "tokens_saved": 1348,
+      "reduction_percent": 73.2,
+      "quality": {
+        "recommendation_agreement": true,
+        "score_difference": 0,
+        "baseline_recommendation": "proceed",
+        "optimized_recommendation": "proceed",
+        "baseline_score": 75,
+        "optimized_score": 75,
+        "shared_matched_skills": [
+          "Django",
+          "Python",
+          "REST APIs",
+          "SQL"
+        ],
+        "shared_missing_skills": [
+          "AWS",
+          "Celery",
+          "Docker",
+          "Redis"
+        ],
+        "baseline_matched_skills": [
+          "Django",
+          "Python",
+          "REST APIs",
+          "SQL"
+        ],
+        "optimized_matched_skills": [
+          "Django",
+          "Python",
+          "REST APIs",
+          "SQL"
+        ],
+        "baseline_missing_skills": [
+          "AWS",
+          "Celery",
+          "Docker",
+          "Redis"
+        ],
+        "optimized_missing_skills": [
+          "AWS",
+          "Celery",
+          "Docker",
+          "Redis"
+        ]
+      }
+    },
+    "optimization_tradeoffs": {
+      "context_pruning": {
+        "risk": "relevant context may be removed if relevance selection is too aggressive",
+        "mitigation": "preserve requirement-related documents/facts and validate important facts"
+      },
+      "structured_state_compression": {
+        "risk": "nuanced upstream information may be lost",
+        "mitigation": "explicitly preserve fields required by downstream decisions"
+      }
+    },
+    "projection_100k": {
+      "baseline_tokens": 100000,
+      "projected_optimized_tokens": 26779,
+      "projected_saving": 73221,
+      "reduction_percent": 73.2,
+      "note": "Projection based on measured benchmark reduction \u2014 not an actual 100K-token API run"
+    }
   }
 ]

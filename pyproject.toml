@@ -1,0 +1,16 @@
+[tool.ruff]
+target-version = "py38"
+exclude = [".git", "__pycache__", ".pytest_cache", "venv", ".venv"]
+
+# Part 1 & 2 files — not modified as part of this exercise
+[tool.ruff.lint.per-file-ignores]
+"src/*" = ["ALL"]
+"app.py" = ["ALL"]
+"tests/test_agents.py" = ["ALL"]
+"tests/test_optimizer.py" = ["ALL"]
+"tests/test_pipeline.py" = ["ALL"]
+"tests/test_quality.py" = ["ALL"]
+"tests/test_token_tracker.py" = ["ALL"]
+"tests/__init__.py" = ["ALL"]
+".github/*" = ["ALL"]
+"benchmarks/*" = ["ALL"]

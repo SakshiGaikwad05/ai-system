@@ -1,24 +1,20 @@
 import json
-import time
 
 import pytest
 
-from debugging.agents import retriever, analyzer, formatter, validator
+from debugging.agents import validator
 from debugging.exceptions import (
     DataIntegrityError,
     MalformedOutputError,
-    WorkflowError,
-    WorkflowTimeoutError,
 )
-from debugging.models import RECORDS, AnalyzerOutput, calculate_score, calculate_status
+from debugging.models import RECORDS, AnalyzerOutput, calculate_score
 from debugging.observability import logger
 from debugging.workflow import (
+    _check_integrity,
+    _generate_request_id,
     run_broken,
     run_fixed,
-    _generate_request_id,
-    _check_integrity,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -74,7 +70,7 @@ def test_timeout_detected():
 
 def test_timeout_retries_exactly_once():
     logger.clear()
-    result = run_fixed("USER-101", "timeout")
+    run_fixed("USER-101", "timeout")
     logs = logger.logs
     analyzer_logs = [l for l in logs if l.stage == "analyzer"]
     assert len(analyzer_logs) == 2

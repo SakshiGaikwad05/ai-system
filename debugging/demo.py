@@ -1,15 +1,12 @@
 import sys
-import traceback
 
 from debugging.exceptions import (
     DataIntegrityError,
     MalformedOutputError,
-    WorkflowError,
     WorkflowTimeoutError,
 )
 from debugging.observability import logger
 from debugging.workflow import run_broken, run_fixed
-
 
 SEP = "=" * 58
 
@@ -36,27 +33,27 @@ def _run_scenario(label: str, request_id: str, failure_mode: str,
     print("\n  BROKEN")
     try:
         result = run_broken(request_id, failure_mode)
-        print(f"  Symptom: Pipeline reported success with result:")
+        print("  Symptom: Pipeline reported success with result:")
         print(f"    {result}")
         if not expect_broken_fail:
             print("  (Expected for normal flow)")
 
         if failure_mode == "wrong_data":
-            print(f"  Root cause: No semantic integrity check — wrong record passed silently.")
+            print("  Root cause: No semantic integrity check — wrong record passed silently.")
         elif failure_mode == "malformed":
-            print(f"  Root cause: No output contract validation — malformed data flowed through.")
+            print("  Root cause: No output contract validation — malformed data flowed through.")
         elif failure_mode == "timeout":
-            print(f"  Root cause: No resilience for transient Analyzer timeout.")
-    except Exception as e:
+            print("  Root cause: No resilience for transient Analyzer timeout.")
+    except Exception as e:  # noqa: BLE001
         print(f"  Symptom: {e}")
-        print(f"  Trace:")
+        print("  Trace:")
         _show_trace(logger.logs[-1].request_id if logger.logs else "?")
         if failure_mode == "timeout":
-            print(f"  Root cause: No resilience for transient Analyzer timeout.")
+            print("  Root cause: No resilience for transient Analyzer timeout.")
         elif failure_mode == "malformed":
-            print(f"  Root cause: No output contract validation.")
+            print("  Root cause: No output contract validation.")
         elif failure_mode == "wrong_data":
-            print(f"  Root cause: No semantic integrity check.")
+            print("  Root cause: No semantic integrity check.")
 
     logger.clear()
     print("\n  FIXED")
@@ -65,31 +62,31 @@ def _run_scenario(label: str, request_id: str, failure_mode: str,
         print("  Trace:")
         _show_trace(logger.logs[-1].request_id if logger.logs else "?")
         if failure_mode == "timeout":
-            print(f"  Fix: Explicit timeout + bounded retry for transient timeout only.")
-            print(f"  Result: PASS")
+            print("  Fix: Explicit timeout + bounded retry for transient timeout only.")
+            print("  Result: PASS")
         elif failure_mode:
-            print(f"  Unexpected success — fix may be missing.")
+            print("  Unexpected success — fix may be missing.")
         else:
-            print(f"  Result: PASS")
+            print("  Result: PASS")
     except WorkflowTimeoutError as e:
-        print(f"  Trace:")
+        print("  Trace:")
         _show_trace(logger.logs[-1].request_id if logger.logs else "?")
-        print(f"  Fix: Explicit timeout + bounded retry for transient timeout only.")
+        print("  Fix: Explicit timeout + bounded retry for transient timeout only.")
         print(f"  Both attempts failed — {e}")
-        print(f"  Result: FAIL (all retries exhausted)")
+        print("  Result: FAIL (all retries exhausted)")
     except MalformedOutputError as e:
-        print(f"  Trace:")
+        print("  Trace:")
         _show_trace(logger.logs[-1].request_id if logger.logs else "?")
-        print(f"  Fix: Schema validation catches malformed result at Formatter boundary.")
+        print("  Fix: Schema validation catches malformed result at Formatter boundary.")
         print(f"  Validator raised: {e}")
-        print(f"  Result: PASS")
+        print("  Result: PASS")
     except DataIntegrityError as e:
-        print(f"  Trace:")
+        print("  Trace:")
         _show_trace(logger.logs[-1].request_id if logger.logs else "?")
-        print(f"  Fix: Semantic identity check after schema validation.")
+        print("  Fix: Semantic identity check after schema validation.")
         print(f"  Expected {e.expected_record_id}, Actual {e.actual_record_id}")
-        print(f"  DataIntegrityError raised.")
-        print(f"  Result: PASS")
+        print("  DataIntegrityError raised.")
+        print("  Result: PASS")
 
 
 def run_normal() -> None:

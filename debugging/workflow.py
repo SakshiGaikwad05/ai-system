@@ -2,15 +2,13 @@ import json
 import time
 import uuid
 
-from debugging.agents import retriever, analyzer, formatter, validator
+from debugging.agents import analyzer, formatter, retriever, validator
 from debugging.exceptions import (
     DataIntegrityError,
     MalformedOutputError,
-    WorkflowError,
     WorkflowTimeoutError,
 )
 from debugging.observability import logger
-
 
 ANALYZER_TIMEOUT_S = 0.1
 MAX_ANALYZER_ATTEMPTS = 2
