@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-07-29T05:02:08.785627+00:00",
+  "model": "mock",
+  "live": false,
+  "baseline": {
+    "total_input_tokens": 1841,
+    "total_output_tokens": 114,
+    "execution_time_s": 0.5142097473144531,
+    "documents_count": 35,
+    "by_agent": {
+      "analyzer": {
+        "input_tokens": 875,
+        "output_tokens": 106
+      },
+      "decision": {
+        "input_tokens": 966,
+        "output_tokens": 8
+      }
+    }
+  },
+  "optimized": {
+    "total_input_tokens": 493,
+    "total_output_tokens": 114,
+    "execution_time_s": 0.00159454345703125,
+    "total_documents": 35,
+    "relevant_documents": 7,
+    "removed_documents": 28,
+    "by_agent": {
+      "analyzer": {
+        "input_tokens": 288,
+        "output_tokens": 106
+      },
+      "decision": {
+        "input_tokens": 205,
+        "output_tokens": 8
+      }
+    }
+  },
+  "comparison": {
+    "tokens_saved": 1348,
+    "reduction_percent": 73.2,
+    "quality": {
+      "recommendation_agreement": true,
+      "score_difference": 0,
+      "baseline_recommendation": "proceed",
+      "optimized_recommendation": "proceed",
+      "baseline_score": 75,
+      "optimized_score": 75,
+      "shared_matched_skills": [
+        "Django",
+        "Python",
+        "REST APIs",
+        "SQL"
+      ],
+      "shared_missing_skills": [
+        "AWS",
+        "Celery",
+        "Docker",
+        "Redis"
+      ],
+      "baseline_matched_skills": [
+        "Django",
+        "Python",
+        "REST APIs",
+        "SQL"
+      ],
+      "optimized_matched_skills": [
+        "Django",
+        "Python",
+        "REST APIs",
+        "SQL"
+      ],
+      "baseline_missing_skills": [
+        "AWS",
+        "Celery",
+        "Docker",
+        "Redis"
+      ],
+      "optimized_missing_skills": [
+        "AWS",
+        "Celery",
+        "Docker",
+        "Redis"
+      ]
+    }
+  }
+}
